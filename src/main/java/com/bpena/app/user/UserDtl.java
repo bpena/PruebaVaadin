@@ -6,20 +6,9 @@ import com.bpena.base.BaseUI;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.UserError;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.DateField;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.OptionGroup;
-import com.vaadin.ui.RichTextArea;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Calendar;
@@ -29,16 +18,21 @@ import java.util.Calendar;
  * @since
  * @author Vaadin Ltd
  */
-public class Form extends BaseUI {
-    public Form() {
+public class UserDtl extends BaseUI {
+    private Label title;
+    private FormLayout form;
+    private Button accept;
+    private Button cancel;
+
+    public UserDtl() {
         setSpacing(true);
         setMargin(true);
 
-        Label title = new Label("Forms");
+        title = new Label("Forms");
         title.addStyleName(ValoTheme.LABEL_H1);
         addComponent(title);
 
-        final FormLayout form = new FormLayout();
+        form = new FormLayout();
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -53,6 +47,7 @@ public class Form extends BaseUI {
         TextField name = new TextField("Name");
         name.setValue(sg.nextString(true) + " " + sg.nextString(true));
         name.setWidth("50%");
+        name.setReadOnly(true);
         form.addComponent(name);
 
         DateField birthday = new DateField("Birthday");
@@ -138,36 +133,43 @@ public class Form extends BaseUI {
         form.setReadOnly(true);
         bio.setReadOnly(true);
 
-        Button edit = new Button("Edit", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                boolean readOnly = form.isReadOnly();
-                if (readOnly) {
-                    bio.setReadOnly(false);
-                    form.setReadOnly(false);
-                    form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                    event.getButton().setCaption("Save");
-                    event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
-                } else {
-                    bio.setReadOnly(true);
-                    form.setReadOnly(true);
-                    form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                    event.getButton().setCaption("Edit");
-                    event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
-                }
-            }
-        });
+        accept = new Button("Accept", clickEvent -> onAccept());
+        cancel = new Button("Cancel", clickEvent -> onCancel());
 
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false));
         footer.setSpacing(true);
         footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         form.addComponent(footer);
-        footer.addComponent(edit);
+        footer.addComponent(accept);
+        footer.addComponent(cancel);
 
         Label lastModified = new Label("Last modified by you a minute ago");
         lastModified.addStyleName(ValoTheme.LABEL_LIGHT);
         footer.addComponent(lastModified);
+    }
+
+//    @Override
+//    public void setReadOnly(boolean readOnly) {
+//        super.setReadOnly(readOnly);
+//        for (Component c : form)
+//            c.setReadOnly(readOnly);
+//
+//        udpateButtons(readOnly);
+//    }
+
+    public void onAccept() {
+        onSave();
+    }
+
+    @Override
+    protected boolean onCancel() {
+        return super.onCancel();
+    }
+
+    private void udpateButtons(boolean readOnly) {
+        accept.setVisible(!readOnly);
+        cancel.setVisible(!readOnly);
     }
 
     @Override

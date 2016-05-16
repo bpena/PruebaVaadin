@@ -136,94 +136,6 @@ public class VaadinUI extends UI {
         });
 
     }
-    static MenuBar getMenuBar() {
-        Command click = new Command() {
-            @Override
-            public void menuSelected(MenuItem selectedItem) {
-                Notification.show("Clicked " + selectedItem.getText());
-            }
-        };
-
-        MenuBar menubar = new MenuBar();
-        menubar.setWidth("100%");
-        final MenuBar.MenuItem file = menubar.addItem("File", null);
-        final MenuBar.MenuItem newItem = file.addItem("New", null);
-        file.addItem("Open file...", click);
-        file.addSeparator();
-
-        newItem.addItem("File", click);
-        newItem.addItem("Folder", click);
-        newItem.addItem("Project...", click);
-
-        file.addItem("Close", click);
-        file.addItem("Close All", click);
-        file.addSeparator();
-
-        file.addItem("Save", click);
-        file.addItem("Save As...", click);
-        file.addItem("Save All", click);
-
-        final MenuBar.MenuItem edit = menubar.addItem("Edit", null);
-        edit.addItem("Undo", click);
-        edit.addItem("Redo", click).setEnabled(false);
-        edit.addSeparator();
-
-        edit.addItem("Cut", click);
-        edit.addItem("Copy", click);
-        edit.addItem("Paste", click);
-        edit.addSeparator();
-
-        final MenuBar.MenuItem find = edit.addItem("Find/Replace", null);
-
-        find.addItem("Google Search", click);
-        find.addSeparator();
-        find.addItem("Find/Replace...", click);
-        find.addItem("Find Next", click);
-        find.addItem("Find Previous", click);
-
-        Command check = new Command() {
-            @Override
-            public void menuSelected(MenuItem selectedItem) {
-                Notification.show(selectedItem.isChecked() ? "Checked"
-                        : "Unchecked");
-            }
-        };
-
-        final MenuBar.MenuItem view = menubar.addItem("View", null);
-        view.addItem("Show Status Bar", check).setCheckable(true);
-        MenuItem title = view.addItem("Show Title Bar", check);
-        title.setCheckable(true);
-        title.setChecked(true);
-        view.addItem("Customize Toolbar...", click);
-        view.addSeparator();
-
-        view.addItem("Actual Size", click);
-        view.addItem("Zoom In", click);
-        view.addItem("Zoom Out", click);
-
-        TestIcon testIcon = new TestIcon(50);
-
-        MenuItem fav = menubar.addItem("", check);
-        fav.setIcon(testIcon.get());
-        fav.setStyleName("icon-only");
-        fav.setCheckable(true);
-        fav.setChecked(true);
-
-        fav = menubar.addItem("", check);
-        fav.setIcon(testIcon.get());
-        fav.setStyleName("icon-only");
-        fav.setCheckable(true);
-        fav.setCheckable(true);
-
-        menubar.addItem("Attach", click).setIcon(FontAwesome.PAPERCLIP);
-        menubar.addItem("Undo", click).setIcon(FontAwesome.UNDO);
-        MenuItem redo = menubar.addItem("Redo", click);
-        redo.setIcon(FontAwesome.REPEAT);
-        redo.setEnabled(false);
-        menubar.addItem("Upload", click).setIcon(FontAwesome.UPLOAD);
-
-        return menubar;
-    }
 
     private boolean browserCantRenderFontsConsistently() {
         // PhantomJS renders font correctly about 50% of the time, so
@@ -435,17 +347,17 @@ public class VaadinUI extends UI {
         }
     };
 
-    static Handler getActionHandler() {
+    public static Handler getActionHandler() {
         return actionHandler;
     }
 
-    static final String CAPTION_PROPERTY = "caption";
-    static final String DESCRIPTION_PROPERTY = "description";
-    static final String ICON_PROPERTY = "icon";
-    static final String INDEX_PROPERTY = "index";
+    public static final String CAPTION_PROPERTY = "caption";
+    public static final String DESCRIPTION_PROPERTY = "description";
+    public static final String ICON_PROPERTY = "icon";
+    public static final String INDEX_PROPERTY = "index";
 
     @SuppressWarnings("unchecked")
-    static Container generateContainer(final int size,
+    public static Container generateContainer(final int size,
                                        final boolean hierarchical) {
         TestIcon testIcon = new TestIcon(90);
         IndexedContainer container = hierarchical ? new HierarchicalContainer()
