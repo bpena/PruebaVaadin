@@ -1,9 +1,8 @@
-package com.bpena.app;
+package com.bpena.app.user;
 
+import com.bpena.app.StringGenerator;
 import com.bpena.base.BaseUI;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.UserError;
 import com.vaadin.shared.ui.MarginInfo;
@@ -21,7 +20,6 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Calendar;
