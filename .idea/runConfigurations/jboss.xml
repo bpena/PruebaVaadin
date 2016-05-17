@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="jboss" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 7.5.0.Final-redhat-21" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8">
+  <configuration default="false" name="jboss" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 8.2.1.Final" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8">
     <option name="UPDATING_POLICY" value="hot-swap-classes" />
     <deployment>
       <artifact name="Prueba:war">

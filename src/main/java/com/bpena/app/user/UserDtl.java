@@ -1,14 +1,11 @@
 package com.bpena.app.user;
 
 import com.bpena.app.StringGenerator;
-import com.bpena.base.BaseUI;
+import com.bpena.base.BaseDetailUI;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.UserError;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Calendar;
@@ -18,53 +15,55 @@ import java.util.Calendar;
  * @since
  * @author Vaadin Ltd
  */
-public class UserDtl extends BaseUI {
-    private Label title;
-    private FormLayout form;
-    private Button accept;
-    private Button cancel;
+public class UserDtl extends BaseDetailUI {
+
+    private TextField name;
+    private DateField birthday;
+    private TextField username;
+    private OptionGroup sex;
+    private TextField email;
+    private TextField location;
+    private TextField phone;
+    private ComboBox period;
+    private TextField website;
+    private TextArea shortbio;
+    private RichTextArea bio;
 
     public UserDtl() {
-        setSpacing(true);
-        setMargin(true);
+        super();
+    }
 
-        title = new Label("Forms");
-        title.addStyleName(ValoTheme.LABEL_H1);
-        addComponent(title);
+    @Override
+    protected void setTitle(String title) {
+        super.setTitle("Forms");
+    }
 
-        form = new FormLayout();
-        form.setMargin(false);
-        form.setWidth("800px");
-        form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        addComponent(form);
+    @Override
+    protected void setForm() {
+        super.setForm();
 
         Label section = new Label("Personal Info");
         section.addStyleName(ValoTheme.LABEL_H2);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
+
         StringGenerator sg = new StringGenerator();
 
-        TextField name = new TextField("Name");
-        name.setValue(sg.nextString(true) + " " + sg.nextString(true));
+        name = new TextField("Name");
         name.setWidth("50%");
         name.setReadOnly(true);
         form.addComponent(name);
 
-        DateField birthday = new DateField("Birthday");
-        Calendar cal = Calendar.getInstance();
-        cal.set(80, 0, 31);
-        birthday.setValue(cal.getTime());
+        birthday = new DateField("Birthday");
         form.addComponent(birthday);
 
-        TextField username = new TextField("Username");
-        username.setValue(sg.nextString(false) + sg.nextString(false));
+        username = new TextField("Username");
         username.setRequired(true);
         form.addComponent(username);
 
-        OptionGroup sex = new OptionGroup("Sex");
+        sex = new OptionGroup("Sex");
         sex.addItem("Female");
         sex.addItem("Male");
-        sex.select("Male");
         sex.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
         form.addComponent(sex);
 
@@ -73,20 +72,17 @@ public class UserDtl extends BaseUI {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        TextField email = new TextField("Email");
-        email.setValue(sg.nextString(false) + "@" + sg.nextString(false)
-                + ".com");
+        email = new TextField("Email");
         email.setWidth("50%");
         email.setRequired(true);
         form.addComponent(email);
 
-        TextField location = new TextField("Location");
-        location.setValue(sg.nextString(true) + ", " + sg.nextString(true));
+        location = new TextField("Location");
         location.setWidth("50%");
         location.setComponentError(new UserError("This address doesn't exist"));
         form.addComponent(location);
 
-        TextField phone = new TextField("Phone");
+        phone = new TextField("Phone");
         phone.setWidth("50%");
         form.addComponent(phone);
 
@@ -97,13 +93,12 @@ public class UserDtl extends BaseUI {
         CheckBox newsletter = new CheckBox("Subscribe to newsletter", true);
         wrap.addComponent(newsletter);
 
-        ComboBox period = new ComboBox();
+        period = new ComboBox();
         period.setTextInputAllowed(false);
         period.addItem("Daily");
         period.addItem("Weekly");
         period.addItem("Montly");
         period.setNullSelectionAllowed(false);
-        period.select("Weekly");
         period.addStyleName(ValoTheme.COMBOBOX_SMALL);
         period.setWidth("10em");
         wrap.addComponent(period);
@@ -114,62 +109,35 @@ public class UserDtl extends BaseUI {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        TextField website = new TextField("Website");
+        website = new TextField("Website");
         website.setInputPrompt("http://");
         website.setWidth("100%");
         form.addComponent(website);
 
-        TextArea shortbio = new TextArea("Short Bio");
-        shortbio.setValue("Quis aute iure reprehenderit in voluptate velit esse. Cras mattis iudicium purus sit amet fermentum.");
+        shortbio = new TextArea("Short Bio");
         shortbio.setWidth("100%");
         shortbio.setRows(2);
         form.addComponent(shortbio);
 
-        final RichTextArea bio = new RichTextArea("Bio");
+        bio = new RichTextArea("Bio");
         bio.setWidth("100%");
-        bio.setValue("<div><p><span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>A communi observantia non est recedendum.</span> <span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Ab illo tempore, ab est sed immemorabili.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span></p><p><span>Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Cum sociis natoque penatibus et magnis dis parturient.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span></p><p><span>Curabitur blandit tempus ardua ridiculus sed magna.</span> <span>Phasellus laoreet lorem vel dolor tempus vehicula.</span> <span>Etiam habebis sem dicantur magna mollis euismod.</span> <span>Hi omnes lingua, institutis, legibus inter se differunt.</span></p></div>");
         form.addComponent(bio);
-
-        form.setReadOnly(true);
-        bio.setReadOnly(true);
-
-        accept = new Button("Accept", clickEvent -> onAccept());
-        cancel = new Button("Cancel", clickEvent -> onCancel());
-
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.setMargin(new MarginInfo(true, false));
-        footer.setSpacing(true);
-        footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
-        form.addComponent(footer);
-        footer.addComponent(accept);
-        footer.addComponent(cancel);
-
-        Label lastModified = new Label("Last modified by you a minute ago");
-        lastModified.addStyleName(ValoTheme.LABEL_LIGHT);
-        footer.addComponent(lastModified);
-    }
-
-//    @Override
-//    public void setReadOnly(boolean readOnly) {
-//        super.setReadOnly(readOnly);
-//        for (Component c : form)
-//            c.setReadOnly(readOnly);
-//
-//        udpateButtons(readOnly);
-//    }
-
-    public void onAccept() {
-        onSave();
     }
 
     @Override
-    protected boolean onCancel() {
-        return super.onCancel();
-    }
-
-    private void udpateButtons(boolean readOnly) {
-        accept.setVisible(!readOnly);
-        cancel.setVisible(!readOnly);
+    protected void setEntityValues() {
+        StringGenerator sg = new StringGenerator();
+        name.setValue(sg.nextString(true) + " " + sg.nextString(true));
+        Calendar cal = Calendar.getInstance();
+        cal.set(80, 0, 31);
+        birthday.setValue(cal.getTime());
+        username.setValue(sg.nextString(false) + sg.nextString(false));
+        sex.select("Male");
+        email.setValue(sg.nextString(false) + "@" + sg.nextString(false)+ ".com");
+        location.setValue(sg.nextString(true) + ", " + sg.nextString(true));
+        period.select("Weekly");
+        shortbio.setValue("Quis aute iure reprehenderit in voluptate velit esse. Cras mattis iudicium purus sit amet fermentum.");
+        bio.setValue("<div><p><span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>A communi observantia non est recedendum.</span> <span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Ab illo tempore, ab est sed immemorabili.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span></p><p><span>Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Cum sociis natoque penatibus et magnis dis parturient.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span></p><p><span>Curabitur blandit tempus ardua ridiculus sed magna.</span> <span>Phasellus laoreet lorem vel dolor tempus vehicula.</span> <span>Etiam habebis sem dicantur magna mollis euismod.</span> <span>Hi omnes lingua, institutis, legibus inter se differunt.</span></p></div>");
     }
 
     @Override

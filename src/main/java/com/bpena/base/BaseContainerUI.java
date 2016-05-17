@@ -95,6 +95,7 @@ public class BaseContainerUI extends VerticalLayout implements View {
             case DETAIL:
                 updateMenu(modes.BROWSE, views.DETAIL);
                 newComponent = detailView;
+                newComponent.setReadOnly(true);
                 break;
             case LIST:
                 updateMenu(modes.BROWSE, views.LIST);
@@ -127,7 +128,6 @@ public class BaseContainerUI extends VerticalLayout implements View {
 
         detailViewBtn.setEnabled(this.mode == modes.BROWSE && this.view == views.LIST);
         listViewBtn.setEnabled(this.mode == modes.BROWSE && this.view == views.DETAIL);
-
     }
 
     @Override

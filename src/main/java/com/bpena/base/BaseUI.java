@@ -143,6 +143,7 @@ public abstract class BaseUI extends VerticalLayout implements View {
         if (!preEdit())
             return false;
 
+        setEntityValues();
         return postEdit();
     }
 
@@ -164,7 +165,7 @@ public abstract class BaseUI extends VerticalLayout implements View {
 
     /**
      * Elimina un registro
-     * @return
+     * @return el resultado de la acción
      */
     protected boolean onDelete() {
         if (!preDelete())
@@ -175,7 +176,7 @@ public abstract class BaseUI extends VerticalLayout implements View {
 
     /**
      * Asigna el contenedor padre de la vista actual.
-     * @param parentContainer
+     * @param parentContainer el contenedor
      */
     public void setParentContainer(BaseContainerUI parentContainer) {
         this.parentContainer = parentContainer;
@@ -187,6 +188,14 @@ public abstract class BaseUI extends VerticalLayout implements View {
      */
     public BaseContainerUI getParentContainer() {
         return this.parentContainer;
+    }
+
+    protected void cleanValues() {
+
+    }
+
+    protected void setEntityValues() {
+
     }
 
     /**
