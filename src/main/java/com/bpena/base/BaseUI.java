@@ -114,7 +114,7 @@ public abstract class BaseUI extends VerticalLayout implements View {
     protected boolean onNew() {
         if (!preNew())
             return false;
-
+        cleanValues();
         return postNew();
     }
 

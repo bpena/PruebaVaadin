@@ -51,7 +51,7 @@ public class UserDtl extends BaseDetailUI {
 
         name = new TextField("Name");
         name.setWidth("50%");
-        name.setReadOnly(true);
+        name.setValue("Lorem Ipsum");
         form.addComponent(name);
 
         birthday = new DateField("Birthday");
@@ -127,7 +127,6 @@ public class UserDtl extends BaseDetailUI {
     @Override
     protected void setEntityValues() {
         StringGenerator sg = new StringGenerator();
-        name.setValue(sg.nextString(true) + " " + sg.nextString(true));
         Calendar cal = Calendar.getInstance();
         cal.set(80, 0, 31);
         birthday.setValue(cal.getTime());
@@ -138,6 +137,19 @@ public class UserDtl extends BaseDetailUI {
         period.select("Weekly");
         shortbio.setValue("Quis aute iure reprehenderit in voluptate velit esse. Cras mattis iudicium purus sit amet fermentum.");
         bio.setValue("<div><p><span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>A communi observantia non est recedendum.</span> <span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Ab illo tempore, ab est sed immemorabili.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span></p><p><span>Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Cum sociis natoque penatibus et magnis dis parturient.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span></p><p><span>Curabitur blandit tempus ardua ridiculus sed magna.</span> <span>Phasellus laoreet lorem vel dolor tempus vehicula.</span> <span>Etiam habebis sem dicantur magna mollis euismod.</span> <span>Hi omnes lingua, institutis, legibus inter se differunt.</span></p></div>");
+    }
+
+    @Override
+    protected void cleanValues() {
+        birthday.setValue(null);
+        username.setValue("");
+        sex.select(null);
+        email.setValue("");
+        location.setValue("");
+        period.select(null);
+        shortbio.setValue("");
+        bio.setValue("");
+
     }
 
     @Override
